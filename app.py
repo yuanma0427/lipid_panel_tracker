@@ -31,12 +31,6 @@ BIOMARKER_FILE_SUFFIX = {
     "Lipoprotein(a)": "lipoprotein_a",
 }
 
-CATEGORY_FILE_PREFIX = {
-    "medication": "medical",
-    "dietary": "dietary",
-    "exercise": "exercise",
-}
-
 # upper limit of normal; lower limit of normal for HDL
 TARGET_VALUE = {
     "TC": 200,
@@ -84,9 +78,8 @@ def load_intervention_data(category, biomarker_label):
 	"""
 	load from internal built-in evidence-based database
 	"""
-	prefix = CATEGORY_FILE_PREFIX[category]
 	suffix = BIOMARKER_FILE_SUFFIX[biomarker_label]
-	path = DATA_DIR / f"{prefix}_interventions_{suffix}.csv"	
+	path = DATA_DIR / f"{category}_interventions_{suffix}.csv"	
 	if not path.exists():
 		return empty_intervention_df()	
 	df = pd.read_csv(path)
@@ -202,6 +195,10 @@ def server(input, output, session):
 	saved_med_rows = reactive.value([])
 	saved_diet_rows = reactive.value([])
 	saved_ex_rows = reactive.value([])
+
+	cached_med_df = reactive.value(empty_intervention_df())
+	cached_diet_df = reactive.value(empty_intervention_df())
+	cached_ex_df = reactive.value(empty_intervention_df())
 
 	#-------------------------------------------- Tab 0: Login-----------------------------
 	@reactive.effect
@@ -462,20 +459,24 @@ def server(input, output, session):
 		return "\n".join(lines)
 	
 	# --------------------------------------------------------Tab 3: Intervention----------------------------
-	@reactive.calc
+	@reactive.effect
 	@reactive.event(input.btn3)
+	def _load_intervention_data():
+		cached_med_df.set(load_intervention_data("medication", input.bio_sel2()))
+		cached_diet_df.set(load_intervention_data("dietary", input.bio_sel2()))
+		cached_ex_df.set(load_intervention_data("exercise", input.bio_sel2()))
+	
+	@reactive.calc
 	def med_df():
-		return load_intervention_data("medication", input.bio_sel2())
+		return cached_med_df.get()
 
 	@reactive.calc
-	@reactive.event(input.btn3)
 	def diet_df():
-		return load_intervention_data("dietary", input.bio_sel2())
+		return cached_diet_df.get()
 
 	@reactive.calc
-	@reactive.event(input.btn3)
 	def ex_df():
-		return load_intervention_data("exercise", input.bio_sel2())
+		return cached_ex_df.get()
 
 	@reactive.effect
 	@reactive.event(input.btn3, input.btn4)
@@ -614,7 +615,7 @@ def server(input, output, session):
 	@render.data_frame
 	def tbl_export():
 		df = selected_interventions_df()
-		return render.DataTable(df)
+		return render.DataTable(df, width="60%")
 	
 	@render.download(filename=lambda: f"{input.bio_sel2()}_interventions_{safe_username(current_user.get() or 'user')}.csv")
 	def btn_down():
