@@ -18,7 +18,6 @@ The app contains 4 tabs to support an end-to-end workflow.
 
    User can bring data into the app via:
 
-- Upload a template CSV/XLSX (recommended for reproducibility)
 - Manual entry (date + biomarker values + notes)
 
 2. Interactive trends visualization (server-side interactivity)

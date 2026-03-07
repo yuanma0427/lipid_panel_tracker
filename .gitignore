@@ -47,6 +47,7 @@ shiny_bookmarks/
 
 # Python project
 .venv/
+__pycache__/
 
 # The data folder
 data/
