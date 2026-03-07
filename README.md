@@ -65,11 +65,11 @@ The app contains 5 tabs to support an end-to-end workflow.
 
 Screenshots of the app:
 
-<img src="./images/tab1.png" width="500">
-<img src="./images/tab2.png" width="500">
-<img src="./images/tab3.png" width="500">
-<img src="./images/tab4.png" width="500">
-<img src="./images/tab5.png" width="500">
+<img src="./images/tab1.png" width="700">
+<img src="./images/tab2.png" width="700">
+<img src="./images/tab3.png" width="700">
+<img src="./images/tab4.png" width="700">
+<img src="./images/tab5.png" width="700">
 
 ## User Guide
 
@@ -77,47 +77,38 @@ Screenshots of the app:
 
 1. Log in
 
-Go to the Login tab, enter a username, and click Login button.
-
-A demo user is available:
-
-- Username: Yuan
+- Go to the Login tab, enter a username, and click Login button.
+- A demo user is available:
+  - Username: Yuan
 
 2. Add a record (optional)
 
-Go to the Input tab and enter:
-
-- the date of test
-- one or more biomarker values
-
-Then click Save.
+- Go to the Input tab and enter:
+  - the date of test
+  - one or more biomarker values
+- Then click Save.
 
 3. Explore trends
 
-Go to the Trend tab and:
-
-- choose a biomarker
-- optionally restrict the date range
-- choose whether to show the reference line
-- click Generate
-
-Then click a point in the plot to inspect the details for that visit.
+- Go to the Trend tab and:
+  - choose a biomarker
+  - optionally restrict the date range
+  - choose whether to show the reference line
+  - click Generate
+- Then click a point in the plot to inspect the details for that visit.
 
 4. Explore interventions
 
-Go to the Interventions tab and:
-
-- select one or more categories
-- select a biomarker
-- click Generate
-
-One or more intervention tables will appear. Click rows in the tables to save interventions of interest. The selected intervention names will appear in the panel on the right.
-
-Use RESET to clear the current selections.
+- Go to the Interventions tab and:
+  - select one or more categories
+  - select a biomarker
+  - click Generate
+- One or more intervention tables will appear. Click rows in the tables to save interventions of interest. The selected intervention names will appear in the panel on the right.
+- Use RESET to clear the current selections.
 
 5. Export selected interventions
 
-Go to the Export tab to preview the currently selected interventions, then click Download to save them as a CSV file.
+- Go to the Export tab to preview the currently selected interventions, then click Download to save them as a CSV file.
 
 ## Limitations
 
